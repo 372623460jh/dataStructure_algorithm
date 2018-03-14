@@ -119,7 +119,7 @@
         var h = sortArr.length;
         while (h >= 1) {
             h = ~~(h / 2);
-            for (var n = h; n < sortArr.length; n ++) {
+            for (var n = h; n < sortArr.length; n++) {
                 for (var s = n; s > 0 && sortArr[s] < sortArr[s - h]; s -= h) {
                     _exchange(sortArr, s - h, s);
                 }
@@ -140,11 +140,6 @@
     setTimeout(function () {
         hillSort();
     }, 1);
-
-
-    // console.log('before:' + randomArr(50000, 100));
-    // console.log('after:' + insertSort());
-    // console.log('after:' + chooseSort());
 
 
 })(this);
