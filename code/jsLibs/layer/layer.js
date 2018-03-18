@@ -226,7 +226,7 @@ Layer.prototype.action = function (config, elem) {
 };
 
 export default window.layer = {
-    v: '2.0',
+    v: '1.0',
     index: index,
 
     //核心方法

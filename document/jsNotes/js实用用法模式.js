@@ -375,4 +375,134 @@ for (var i in man) {
 
 // 函数声明只能出现在程序或函数体内。它们不能出现在Block（块）（{ ... }）中，例如不能出现在 if、while 或 for 语句中
 // 块中只能是表达式
+
+/**
+ * 变量提升是在当前方法作用域内进行提升,变量提升优先级大于函数提升优先级
+ */
+// 变量提升
+alert(ss);
+var ss = '123';
+// 等价于
+var ss;
+alert(ss);
+ss = '123';
+
+// 函数提升
+alert(fn());
+function fn() {
+    console.log('hello world');
+}
+// 等价于
+function fn() {
+    console.log('hello world');
+}
+alert(fn());
+
+//作用域内提升
+!(function () {
+    var ss = 'test';
+    console.log(ss);
+    fn();
+    function fn() {
+        console.log(ss);
+        var ss = 'fnsss';
+        console.log(ss);
+    }
+})();
+// 等价于
+!(function () {
+    var ss;
+
+    function fn() {         // 函数提升到当前作用域顶部，优先级低于表达式提升
+        var ss;             // 提升到单钱作用顶部
+        console.log(ss);    // undefined
+        ss = 'c';
+        console.log(ss);    // fnsss
+    };
+    ss = 'test';
+    console.log(ss);        // test
+    fn();
+})();
+
+// 表达式和函数提升
+!(function () {
+    var ss = 'test';
+    fn();
+    fn1();
+    function fn() {
+        console.log(ss);
+        var ss = 'fnsss';
+        console.log(ss);
+    };
+    var fn1 = function () {
+        console.log(ss);
+        var ss = 'fn1sss';
+        console.log(ss);
+    };
+})();
+// 等价于
+!(function () {
+    var ss;
+    var fn1;
+
+    function fn() {         // 函数提升到当前作用域顶部，优先级低于表达式提升
+        var ss;             // 提升到单钱作用顶部
+        console.log(ss);    // undefined
+        ss = 'fnsss';
+        console.log(ss);    // fnsss
+    };
+    ss = 'test';
+    fn();
+    fn1();                  // fn1 is not a function
+    fn1 = function () {     // 函数表达式当做普通表达式来提升
+        console.log(ss);
+        var ss = 'fn1sss';
+        console.log(ss);
+    };
+})();
+
+// 表达式中的方法，只在自己的作用域中生效
+!(function () {
+    var f = function foo() {// 命名函数表达式(给表达式中的函数取名)
+        return typeof foo; // foo是在内部作用域内有效
+    };
+    console.log(typeof foo);// foo在外部用于是不可见的
+    f();
+})();
+
+// 等价于
+var f;
+f = function foo() {
+    return typeof foo; // foo是在内部作用域内有效
+};
+console.log(typeof foo);// foo在外部用于是不可见的
+f(); // "function"
+//====================================================结束==============================================================
+
+//====================================================开始==============================================================
+/**
+ * arguments.callee 在哪一个函数中运行，它就代表哪个函数。 一般用在匿名函数中。
+ * 在匿名函数中有时会需要自己调用自己，但是由于是匿名函数，没有名子，无名可调。
+ * 这时就可以用arguments.callee来代替匿名的函数
+ */
+(function (n) {//相当于递归调用这个匿名函数 实现n的阶乘
+    if (n > 1)    return n * arguments.calle(n - 1);
+    return n;
+})(10);
+//====================================================结束==============================================================
+
+//====================================================开始==============================================================
+/**
+ * arguments.callee 在哪一个函数中运行，它就代表哪个函数。 一般用在匿名函数中。
+ * 在匿名函数中有时会需要自己调用自己，但是由于是匿名函数，没有名子，无名可调。
+ * 这时就可以用arguments.callee来代替匿名的函数
+ */
+Object.prototype.x = 'outer';
+(function(){
+    var x = 'inner';
+    (function foo(){
+        alert(x); // 提示框中显示：inner 函数作用域
+        alert(foo.x); // 提示框中显示：outer 原型链
+    })();
+})();
 //====================================================结束==============================================================
