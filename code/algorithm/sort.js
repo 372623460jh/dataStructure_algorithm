@@ -273,7 +273,7 @@
     }
 
 
-    randomArr(5000000, 100);
+    randomArr(500000, 100);
     // setTimeout(function () {
     //     console.time('insertSort');
     //     insertSort();
@@ -290,16 +290,16 @@
         // console.log('res:' + hillSort());
         console.timeEnd('hillSort');
     }, 1);
-    // setTimeout(function () {
-    //     console.time('mergerSort');
-    //     mergerSort();
-    //     console.timeEnd('mergerSort');
-    // }, 1);
-    // setTimeout(function () {
-    //     console.time('mergerInsertSort');
-    //     mergerInsertSort();
-    //     console.timeEnd('mergerInsertSort');
-    // }, 1);
+    setTimeout(function () {
+        console.time('mergerSort');
+        mergerSort();
+        console.timeEnd('mergerSort');
+    }, 1);
+    setTimeout(function () {
+        console.time('mergerInsertSort');
+        mergerInsertSort();
+        console.timeEnd('mergerInsertSort');
+    }, 1);
     setTimeout(function () {
         console.time('quicksort');
         quicksort();
