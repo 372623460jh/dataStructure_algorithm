@@ -6,7 +6,12 @@
 
     var u1 = {
         fun1: function fun1(test) {
-            console.log(test);
+            var a = { test: '123', test1: '345' };
+            for (var _item in a) {
+                console.log(_item);
+            }
+            console.log(item); //可以读出item
+            console.log(sss);
         }
     };
 
