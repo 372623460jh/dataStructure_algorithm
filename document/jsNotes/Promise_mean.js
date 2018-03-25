@@ -99,3 +99,98 @@ function asyncfun() {
     }
     console.log('结束');
 })();
+
+'use strict';
+
+function _asyncToGenerator(fn) {
+    return function () {
+        var gen = fn.apply(this, arguments);
+        return new Promise(function (resolve, reject) {
+            function step(key, arg) {
+                try {
+                    var info = gen[key](arg);
+                    var value = info.value;
+                } catch (error) {
+                    reject(error);
+                    return;
+                }
+                if (info.done) {
+                    resolve(value);
+                } else {
+                    return Promise.resolve(value).then(function (value) {
+                        step("next", value);
+                    }, function (err) {
+                        step("throw", err);
+                    });
+                }
+            }
+
+            return step("next");
+        });
+    };
+}
+
+function asyncfun(time) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            var success = true;
+            if (success) {
+                resolve('成功');
+            } else {
+                reject('失败');
+            }
+        }, time);
+    });
+}
+/**
+ * 使用async，await
+ */
+var load = function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var succ, succ1;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        console.log('开始');
+                        _context.prev = 1;
+                        _context.next = 4;
+                        return asyncfun(2000);
+
+                    case 4:
+                        succ = _context.sent;
+
+                        console.log('2000' + succ);
+                        _context.next = 8;
+                        return asyncfun(1500);
+
+                    case 8:
+                        succ1 = _context.sent;
+
+                        console.log('1500' + succ1);
+                        _context.next = 15;
+                        break;
+
+                    case 12:
+                        _context.prev = 12;
+                        _context.t0 = _context['catch'](1);
+
+                        //直接可以得到reject的返回值。
+                        console.log(_context.t0);
+
+                    case 15:
+                        console.log('结束');
+
+                    case 16:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, this, [[1, 12]]);
+    }));
+
+    return function load() {
+        return _ref.apply(this, arguments);
+    };
+}();
+load();

@@ -1,6 +1,8 @@
-# Promise笔记
+# Promise,async,await笔记
 
-## 创建promise对象
+## Promise
+
+### 创建promise对象
 - Promise对象构造方法传入一个带有resolve和reject两个参数的函数function
 ```javascript
 var promise = new Promise(function (resolve, reject) {
@@ -11,7 +13,7 @@ var promise = new Promise(function (resolve, reject) {
 });
 ```
 
-## promise中resolve，reject
+### promise中resolve，reject
 - Promise对象构造方法传入的function中的resolve，reject参数是用来处理成功或失败
 - Promise对象总共有3中状态：
     - pending: 初始状态，不是成功或失败状态。
@@ -33,7 +35,7 @@ var promise = new Promise(function (resolve, reject) {
 });
 ```
 
-## promise中then，catch
+### promise中then，catch
 - Promise实例通过then接受成功（可以连点），catch接收失败
 - promise一次resolve执行会顺序触发promise实例下的所有then方法
 - promise中reject,throw Erroe都会promise实例下的所有catch方法
@@ -66,7 +68,7 @@ promise.then(function (data) {
 // 执行成功
 ```
 
-## 两个promise依赖执行
+### 两个promise依赖执行
 - promise的then方法默认返回的是自身promise实例（从而实现then的连点）,当在then方法中添加return时,return就会根据return来变化
 
 **现有一个这样的业务场景需要先调接口A获取用户信息,再根据接口A返回的数据调用接口B,两个接口存在依赖**
@@ -111,7 +113,7 @@ promise1.then(function (data) {
 // 接口B
 ```
 
-## 两个promise顺序执行
+### 两个promise顺序执行
 - promise的then方法默认返回的是自身promise实例（从而实现then的连点）,当在then方法中添加return时,return就会根据return来变化
 
 **现有一个这样的业务场景需要先调接口A和接口B获取数据,根据结果A返回数据取处理结果B返回的数据,两个接口不存在依赖，但是存在顺序**
@@ -157,7 +159,7 @@ promise1.then(function (data) {
 // 接口B执行成功
 ```
 
-## Promise.all方法
+### Promise.all方法
 - all方法是Promise类下的静态方法,用于处理多个promise执行合并
 
 **现有一个这样的业务场景渲染需要接口A和接口B数据，两个接口不存在依赖，也不存在顺序**
@@ -195,7 +197,7 @@ Promise.all([promise1,promise2]).then(function (datas) {
 // promise2执行成功
 ```
 
-## Promise.race方法
+### Promise.race方法
 - race方法是Promise类下的静态方法,用于处理多个promise竞速
 
 **现有一个这样的业务场景需要接口A或者接口B的数据，两个接口不存在依赖，也不存在顺序，谁先返回我就用谁的数据**
@@ -231,4 +233,43 @@ Promise.race([promise1,promise2]).then(function (data) {
 // promise1执行成功
 ```
 
+## async/await
 
+- async关键字申明的该方法是一个异步方法,申明方法中的await申明的promise对象都会转换为同步
+- await关键字阻塞promise对象使promise变为同步
+- await只能在async关键字申明的异步方法中使用
+- await等待的虽然是promise对象，但不必写.then()，直接可以得到resolve的返回值。
+- 捕获错误用try catch
+
+```javascript
+function asyncfun(time) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            let success = true;
+            if (success) {
+                resolve('成功');
+            } else {
+                reject('失败');
+            }
+        }, time);
+    });
+}
+/**
+ * 使用async，await
+ */
+let load = async function() {
+    console.log('开始');
+    try {
+        //直接可以得到resolve的返回值。
+        let succ = await asyncfun(2000);
+        console.log('2000'+succ);
+        let succ1 = await asyncfun(1500);
+        console.log('1500'+succ1);
+    } catch (err) {
+        //直接可以得到reject的返回值。
+        console.log(err);
+    }
+    console.log('结束');
+};
+load();
+```
