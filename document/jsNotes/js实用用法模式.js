@@ -636,12 +636,10 @@ foo('a');
 
 //====================================================开始==============================================================
 // this解释：this是上下文对象中的一个属性,this不是变量，不能被赋值。
-
 /**
  * 全局代码中的this:
  *     this值在进入上下文时确定，并且在上下文运行期间永久不变。
  */
-
 /**
  * 函数代码中的this:
  *     在通常的函数调用中，this是由激活上下文代码的调用者来提供的，即调用函数的父上下文(parent context )
@@ -653,7 +651,6 @@ foo(); // global
 alert(foo === foo.prototype.constructor); // true
 // 但是同一个function的不同的调用表达式，this是不同的
 foo.prototype.constructor(); // foo.prototype
-
 /**
  * 自执行方法的this
  *     在任何情况下自执行方法的this都是指向global
@@ -666,6 +663,17 @@ var obj = {
     }
 };
 obj.method();
+/**
+ * 方法调用的引用类型为null，this指向global
+ */
+function foo() {
+    function bar() {
+        alert(this); // global
+    }
+
+    bar();
+}
+foo();
 //====================================================结束==============================================================
 
 //====================================================开始==============================================================
@@ -816,4 +824,107 @@ console.log(6);
  * 程序设计5原则
  * 1.开放封闭原则:对扩展开放对修改封闭原则
  */
+//====================================================结束==============================================================
+
+//====================================================开始==============================================================
+/**
+ * 上下文件中的引用类型解释，伪码
+ *
+ */
+// var fooReference = {
+//     base: global,
+//     propertyName: 'foo'
+// };
+function foo() {
+    alert(this.bar);
+}
+// var xReference = {
+//     base: global,
+//     propertyName: 'x'
+// };
+// var xbarReference = {
+//     base: x,
+//     propertyName: 'bar'
+// };
+var x = {bar: 10};
+// var yReference = {
+//     base: global,
+//     propertyName: 'y'
+// };
+// var ybarReference = {
+//     base: y,
+//     propertyName: 'bar'
+// };
+var y = {bar: 20};
+// var xtestReference = {
+//     base: x,
+//     propertyName: 'test'
+// };
+// var ytestReference = {
+//     base: y,
+//     propertyName: 'test'
+// };
+x.test = foo;
+y.test = foo;
+x.test(); // 10
+y.test(); // 20
+//====================================================结束==============================================================
+
+//====================================================开始==============================================================
+/**
+ * 冻结对象的方法
+ */
+/**
+ * freeze可读，不可写，不可扩展
+ */
+var foo = {x: 10};
+Object.freeze(foo);
+console.log(Object.isFrozen(foo)); // true
+console.log(foo.x); // 10
+/**
+ * preventExtensions可读，可写，不可扩展
+ */
+var foo = {x: 10};
+Object.preventExtensions(foo);
+console.log(Object.isExtensible(foo)); // false
+foo.x = 100;
+console.log(foo.x); // 100
+/**
+ * defineProperty，writable: false, // 只读,configurable: false
+ */
+var foo = {x: 10};
+Object.defineProperty(foo, "x", {
+    value: 20,
+    configurable: false,//能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
+    enumerable: false,//对象属性是否可通过for-in循环，false为不可循环，默认值为true
+    writable: false,//对象属性是否可修改,false为不可修改，默认值为true
+});
+foo.x = 100;
+console.log(foo.x); // 20
+delete foo.x; // false
+/**
+ * 一些属性有特定的getter / setter方法
+ */
+var a = new String("foo");
+a.length = 10;
+alert(a.length); // 3
+//====================================================结束==============================================================
+
+//====================================================开始==============================================================
+/**
+ * 读取对象值时会去隐式执行valueOf
+ */
+var c = {
+    x: 10,
+    y: 20,
+    valueOf: function () {
+        return this.x + this.y;
+    }
+};
+var d = {
+    x: 30,
+    y: 40,
+    valueOf: c.valueOf
+};
+alert(c + d); // 100
 //====================================================结束==============================================================
