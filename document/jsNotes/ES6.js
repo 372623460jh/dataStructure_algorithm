@@ -38,3 +38,29 @@ class Fruit {
     }
 }
 //====================================================结束==============================================================
+
+//====================================================开始==============================================================
+/**
+ * ES6 proxy代理
+ * @type {{a: number, b: number}}
+ */
+let obj = {
+    a: 1,
+    b: 2,
+}
+let handler = {
+    get: function (target, name) {
+        return name in target ? target[name] : '值不存在';
+    },
+    set: function (target, name, value) {
+        name in target ? target[name] = value : target[name] = 37;
+    }
+};
+//p就是生成的代理对象
+let p = new Proxy(obj, handler);
+p.a = 1;
+p.b = undefined;
+p.d = 9999;
+console.log(p.a, p.b, p.d);    // 1, undefined,37
+console.log('c' in p, p.c);    // false, 值不存在
+//====================================================结束==============================================================
