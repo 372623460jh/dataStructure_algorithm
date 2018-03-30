@@ -41,6 +41,7 @@ Object.defineProperty(arrayMethods, 'push', {
  * 在JavaScript中，对象的属性分为可枚举和不可枚举之分，
  * 它们是由属性的enumerable值决定的。可枚举性决定了这个属性能否被for…in查找遍历到。
  * 获取new Array(3)中的可枚举属性（不包含原型中）
+ * 数组中的下标是不可枚举的
  * @type {Array}
  */
 var propArr = Object.getOwnPropertyNames(new Array(3));
@@ -198,6 +199,9 @@ var all = arr1.concat(arr2);//合并为[1,2,3,3,4,5]
 // 剪切数组splice第一个参数表示从哪个下标开始 第二个参数是剪切几个元素
 var arr1 = [1, 2, 3];
 var scissors = arr1.splice(1, 1);//scissors为[2]  //arr1为[1, 3]
+
+// 方法从一个类似数组或可迭代对象中创建一个新的数组实例。
+Array.from()
 
 //====================================================结束==============================================================
 
@@ -364,7 +368,6 @@ alert(fn());
 // 等价于
 !(function () {
     var ss;
-
     function fn() {         // 函数提升到当前作用域顶部，优先级低于表达式提升
         var ss;             // 提升到单钱作用顶部
         console.log(ss);    // undefined
