@@ -51,8 +51,33 @@
     //--save-dev开发时的依赖保存到package.json中
     npm install XXXX --save/-g/--save-dev  //安装包 
     ```
+- npm源列表
+    ```shell
+    npm ---- https://registry.npmjs.org/
+    cnpm --- http://r.cnpmjs.org/
+    taobao - http://registry.npm.taobao.org/
+    eu ----- http://registry.npmjs.eu/
+    au ----- http://registry.npmjs.org.au/
+    sl ----- http://npm.strongloop.com/
+    nj ----- https://registry.nodejitsu.com/
+    ```
 - 发布到npm官方源
     ```shell
+    //将包发布到源上,需先在官方源登陆，并连接到官方源（命令找的是目录下的package.json文件进行发布）
+    //需要更新的话先修改package.json中的版本号再执行以下命令
+    npm adduser //注册用户
+    npm login //登陆npm
+
+    npm config set registry https://registry.npm.taobao.org //设置源
+    npm config get registry //查看源设置是否生效
+
+
+    npm init XXXX //初始化项目（生成package.json文件）
+    //--save部署时的依赖保存到package.json中
+    //-g保存到npm安装目录的node_module中（全局安装）
+    //--save-dev开发时的依赖保存到package.json中
+    npm install XXXX --save/-g/--save-dev  //安装包 
+
     //将包发布到源上,需先在官方源登陆，并连接到官方源（命令找的是目录下的package.json文件进行发布）
     //需要更新的话先修改package.json中的版本号再执行以下命令
     npm publish
