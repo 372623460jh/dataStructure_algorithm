@@ -4,7 +4,6 @@
             (factory());
 }(this, (function () {
     'use strict';
-
     var u1 = {
         fun1: function fun1(test) {
             var a = { test: '123', test1: '345' };
@@ -15,7 +14,6 @@
             console.log(sss);
         }
     };
-
     function fn1() {
         var ss = [1, 2, 3, 4, 5];
         ss = ss.map(function (item) {
@@ -23,13 +21,10 @@
         });
         console.log(ss.join(','));
     }
-
     function fn2() {
         console.log('fn2');
     }
-
     u1.fun1('u1.fun1');
     fn1();
     fn2();
-
 })));
