@@ -2,6 +2,53 @@
 
 ## GIT命令操作
 
+- git config
+    - 查看当前目录下的config配置列表
+    ```shell
+    git config --list
+    ```
+    - 配置全局config
+    ```shell
+    # 配置全局用户名
+    git config --global user.name 'XXX'
+    ```
+
+    - 配置项目私有config
+    ```shell
+    # 配置项目私有用户名
+    git config --local user.name 'XXX'
+    ```
+
+- git clone
+
+    - 克隆远程仓库master分支到本地
+    ```shell
+    # 克隆远程仓库到本地目录
+    git clone xxx
+    ```
+
+    - 克隆远程仓库其他分支到本地
+    ```shell
+    git clone -b 分支名 git远程地址
+    ```
+
+    - 查看本地仓库分支
+    ```shell
+    git branch
+    ```
+
+- git tag 给当前仓库添加标签主要用来设置版本号
+
+    - 给本地仓库添加标签
+    ```shell
+    git tag -a v0.1 -m 'v0.1'
+    ```
+
+    - 将本地残酷标签推送到远程仓库
+    ```shell
+    git push --tag
+    ```
+
 - 初始化一个本地GIT仓储
     - 就是在本地文件夹中添加了一个.git的文件夹用于记录所有的项目变更信息
     ```shell
