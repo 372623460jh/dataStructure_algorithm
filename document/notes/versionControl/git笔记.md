@@ -134,14 +134,14 @@
 > `ssh-keygen -t rsa -C ”email”`,注意这个地方的邮箱地址需要和gitlab/github上对应，一直回车密码可以为空,这样就会在/Users/用户名/.ssh/下生成id_rsa和id_rsa.pub
 
 ### 3.配置GitLab/GitHub SSH
-> 打开GitLab/GitHub关于SSH的配置
+> 打开GitLab/GitHub关于SSH的配置,一般叫做ssh key。
 > cat id_rsa.pub
 > 将秘钥复制到GitLab/GitHub的key中
 
 ### 4.修改git配置
 ```shell
 git config --global user.name '用户名'
-git config --global user.email '刚刚生成秘钥填的邮箱'
+git config --global user.email '刚刚生成秘钥填的邮箱'
 ```
 
 ### 5.git clone ssh
