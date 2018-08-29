@@ -53,7 +53,7 @@ var propArr = Object.getOwnPropertyNames(new Array(3));
  * 获取对象中某属性的属性描述器
  * @type {{test: string}}
  */
-var obj = {test: 'name'};
+var obj = { test: 'name' };
 var property = Object.getOwnPropertyDescriptor(obj, 'test');
 //获得该属性的描述器对象 {value: "name", writable: true, enumerable: true, configurable: true}
 //====================================================结束==============================================================
@@ -201,7 +201,7 @@ var arr1 = [1, 2, 3];
 var scissors = arr1.splice(1, 1);//scissors为[2]  //arr1为[1, 3]
 
 // 方法从一个类似数组或可迭代对象中创建一个新的数组实例。
-var ss = Array.from({length: 0});//ss=[];
+var ss = Array.from({ length: 0 });//ss=[];
 
 // Array.prototype.map
 // map()方法在调用callback函数时，会给它传递三个参数：当前正在遍历的元素、元素索引、原数组本身。
@@ -218,8 +218,8 @@ parseInt('3', 2, ["1", "2", "3"]);//NaN
  * Object.assign方法：合并对象
  * 类似于数组的concat，Object.assign方法是用来合并对象的，如果存在重复属性，后来的覆盖前面的
  */
-var a = {a: 1, b: 2};
-var b = {b: 3, d: 4};
+var a = { a: 1, b: 2 };
+var b = { b: 3, d: 4 };
 var c = Object.assign(a, b);
 //====================================================结束==============================================================
 
@@ -588,7 +588,7 @@ console.log(x); // 10
 (function foo() {
     var w = 40;
     var x = 100;
-    with ({z: 50}) {
+    with ({ z: 50 }) {
         /**
          * with会改变block中的作用域,相当于
          * 找w值 = ({z: 50}).w 去Object的原型链中找W属性没找到，再去正常作用域链中找,找到40
@@ -739,7 +739,7 @@ function fn() {
         return item + 1;
     })
 }
-fn.call({a: 100});
+fn.call({ a: 100 });
 //====================================================结束==============================================================
 
 //====================================================开始==============================================================
@@ -866,7 +866,7 @@ function foo() {
 //     base: x,
 //     propertyName: 'bar'
 // };
-var x = {bar: 10};
+var x = { bar: 10 };
 // var yReference = {
 //     base: global,
 //     propertyName: 'y'
@@ -875,7 +875,7 @@ var x = {bar: 10};
 //     base: y,
 //     propertyName: 'bar'
 // };
-var y = {bar: 20};
+var y = { bar: 20 };
 // var xtestReference = {
 //     base: x,
 //     propertyName: 'test'
@@ -897,14 +897,14 @@ y.test(); // 20
 /**
  * freeze可读，不可写，不可扩展
  */
-var foo = {x: 10};
+var foo = { x: 10 };
 Object.freeze(foo);
 console.log(Object.isFrozen(foo)); // true
 console.log(foo.x); // 10
 /**
  * preventExtensions可读，可写，不可扩展
  */
-var foo = {x: 10};
+var foo = { x: 10 };
 Object.preventExtensions(foo);
 console.log(Object.isExtensible(foo)); // false
 foo.x = 100;
@@ -912,7 +912,7 @@ console.log(foo.x); // 100
 /**
  * defineProperty，writable: false, // 只读,configurable: false
  */
-var foo = {x: 10};
+var foo = { x: 10 };
 Object.defineProperty(foo, "x", {
     value: 20,
     configurable: false,//能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
@@ -981,3 +981,9 @@ if (true) {
 // <script defer src="myscript.js"></script>
 // 有 defer，加载后续文档元素的过程将和 script.js 的加载并行进行（异步），但是 script.js 的执行要在所有元素解析完成之后，DOMContentLoaded 事件触发之前完成。
 //====================================================结束==============================================================
+
+// 说爱
+function saylove() {
+    console.log('love');
+}
+saylove();
